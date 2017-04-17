@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анкета Абитуриента</title>
+    <script src = "form_js.js" type="text/javascript"></script>
+    <link href = "form_style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+<h2>Анкета абитуриента</h2>
+</header>
+
+<p class = "please_fill_message"> Заполните, пожалуйста, следующие пункты: </p>
+
+<ul class ="main_fields_links">
+    <li><a href = "#about"> Общие сведения</a></li>
+    <li><a href = "#documents"> Документ, удостоверяющий личность и гражданство</a></li>
+    <li><a href = "#address"> Адрес </a></li>
+    <li><a href = "#education_level"> Образование</a></li>
+    <li><a href = "#type_of_program">Направления подготовки </a></li>
+</ul>
+
+<!--Общие -->
+
+<div id = "about">
+    <h3>Общие сведения об абитуриенте</h3>
+    <div class = "div_form_container">
+        <form name = "about_form">
+            <label for = "surname"> Фамилия:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <input type = "text" name = "surname" id ="surname" class = "required" onchange="checkName(id)"> <br>
+
+            <label for = "lastname"> Имя:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <input type = "text" name = "lastname" id = "lastname" class = "required" onchange="checkName(id)"> <br>
+
+            <label for = "otch" class = "form_labels"> Отчество:</label>
+            <input type = "text" name = "otch" id = "otch"> <br>
+
+            <label for = "sex"> Пол:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <select name = "sex" id = "sex" class="required">
+                <option value = "default" selected disabled>Выберите пол</option>
+                <option>Мужской</option>
+                <option>Женский</option>
+            </select> <br>
+
+            <label for = "date_of_birth"> Дата рождения:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <input type = "date" id = "date_of_birth" class = "required"> <br>
+            <span class = "help_labels"> используется формат dd/mm/yyyy</span> <br>
+
+            <label for = "place_of_birth"> Место рождения:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <input type = "text" name = "place_of_birth" id = "place_of_birth" class = "required">
+            <br>
+            <span class = "help_labels">село, деревня, город, район, область</span> <br>
+
+            <label for = "citizenship">Гражданство:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <select name = "citizenship" id = "citizenship" class = "required" onchange="showHiddenFields(this)">
+                <option value = "default" selected disabled>Выберите гражданство:</option>
+                <option value="russia">Гражданин Российской Федерации</option>
+                <option value="shows_hidden">Гражданин другой страны</option>
+            </select>
+
+            <div class = "hidden">
+                <label for = "about_country_name">Название страны:
+                    <span class = "required_star_symbol">*</span></label>
+                <input type = "text" name = "about_country_name" id = "about_country_name" class = "required">
+            </div>
+
+    </form>
+</div>
+</div>
+
+<!-- Документы-->
+
+<div id = "documents">
+    <h3>Документ, удостоверяющий личность и гражданство </h3>
+    <div class = "div_form_container">
+        <form name = "documents_form">
+            <label for = "document_type">Вид документа:
+                <span class = "required_star_symbol">*</span>
+            </label>
+
+            <select name = "document_type" id = "document_type" class = "required">
+                <option value = "default" selected>Выберите тип документа:</option>
+                <option value = "pass_rus">Паспорт гражданина Российской Федерации</option>
+                <option value="pass_other_country">Паспорт гражданина другой страны</option>
+            </select> <br>
+
+            <label for = "series">Серия:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <input type = "text" name = "series" id = "series" class = "required number_field"> <br>
+
+            <label for = "pass_number">Номер:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <input type = "text" name = "pass_number" id = "pass_number" class = "required number_field" onchange="checkNomer(id)"> <br>
+
+            <label for = "pass_date">Дата выдачи: </label>
+            <input type = "date" name = "pass_date" id = "pass_date">
+            <span class = "help_labels"> используется формат dd/mm/yyyy</span> <br>
+
+            <label for = "pass_who_gave">Орган, выдавший документ (как в паспорте):
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <textarea name="pass_who_gave" id = "pass_who_gave" class = "required"></textarea>
+        </form>
+    </div>
+</div>
+
+<!-- Адрес-->
+
+<div id = "address">
+    <h3>Адрес</h3>
+    <div class = "div_form_container">
+        <form name = "addresses_form">
+
+            <fieldset id = "address_country" onchange="showHiddenFields(this)">
+                <legend for = "address_country"> Страна проживания:</legend>
+                    <input type = "radio" name = "country_of_living" id = "addr_russia" value="russia"> Российская Федерация
+                    <input type = "radio" name = "country_of_living" id = "addr_other" value="show_hidden"> Другая страна
+            </fieldset>
+
+            <div class = "hidden">
+                <label for = "address_country_name">Название страны:
+                    <span class = "required_star_symbol">*</span></label>
+                <input type = "text" name = "address_country_name" id = "address_country_name" class = "required">
+            </div>
+
+            <label for = "city">Населенный пункт: <br></label>
+            <input type="text" name = "city" id = "city">
+
+            <label for = "street">Улица:</label>
+            <input type = "text" name = "street" id = "street">
+
+            <label for = "home_number">Номер дома:</label>
+            <input type = "text" name = "home_number" id = "home_number" class = "number_field"> <br>
+
+            <label for = "korp">Корпус:</label>
+            <input type = "text" name = "korp" id = "korp" class = "number_field"> <br>
+
+            <label for = "flat_number">Квартира:</label>
+            <input type = "text" name = "flat_number" id = "flat_number" class = "number_field"> <br>
+
+            <label for = "index">Индекс:</label>
+            <input type = "text" name = "index" id = "index" class = "number_field"> <br>
+            <span class = "help_labels">Указывается, если есть</span>
+
+            <hr>
+            <h4>Фактический адрес проживания:</h4>
+            <label for = "fact_living">Совпадает с паспортными данными?</label>
+            <input type="checkbox" name = "fact_living" id = "fact_living" checked onchange="showHiddenFields(this)">
+
+            <div class = "hidden">
+                <label for = "city_nf">Населенный пункт: <br></label>
+                <input type="text" name = "city" id = "city_nf">
+
+                <label for = "street_nf">Улица:</label>
+                <input type = "text" name = "street" id = "street_nf">
+
+                <label for = "home_number_nf">Номер дома:</label>
+                <input type = "text" name = "home_number" id = "home_number_nf" class = "number_field"> <br>
+
+                <label for = "korp_nf">Корпус:</label>
+                <input type = "text" name = "korp" id = "korp_nf" class = "number_field"> <br>
+
+                <label for = "flat_number_nf">Квартира:</label>
+                <input type = "text" name = "flat_number" id = "flat_number_nf" class = "number_field"> <br>
+
+                <label for = "index_nf">Индекс:</label>
+                <input type = "text" name = "index" id = "index_nf" class = "number_field"> <br>
+                <span class = "help_labels">Указывается, если есть</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Образование-->
+
+<div id = "education_level">
+    <h3>Образование</h3>
+    <div class = "div_form_container">
+        <form name = "edu_form">
+
+            <label for = "obr_type">Тип учебного заведения:
+                <span class = "required_star_symbol">*</span>
+            </label>
+
+            <select name = "obr_type" id = "obr_type" class = "required">
+                <option value = "default" selected>Выберите:</option>
+                <option>Школа</option>
+                <option>Гимназия</option>
+                <option>Лицей</option>
+                <option>Техникум</option>
+                <option>Высшее учебное заведение</option>
+                <option>Другое</option>
+            </select> <br>
+
+            <label for = "edu_country"> Страна:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <select name = "edu_country" id = "edu_country" class = "required" onchange="showHiddenFields(this)">
+                <option disabled selected>Выберите</option>
+                <option value = "edu_russia">Российская Федерация</option>
+                <option value = "shows_hidden">Дргуая страна</option>
+            </select>
+
+            <div class = "hidden">
+                <br>
+                <label for = "edu_country_name">Название страны:
+                    <span class = "required_star_symbol">*</span></label>
+                <input type = "text" name = "edu_country_name" id = "edu_country_name" class = "required">
+            </div>
+
+            <br>
+            <label for = "edu_city">Населенный пункт:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <input type="text" name="edu_city" id="edu_city" class = "required">
+
+            <label for = "edu_name">Название учебного заведения:
+                <span class = "required_star_symbol">*</span>
+            </label>
+            <textarea name="edu_name" id = "edu_name" class = "required"></textarea>
+
+            <label for = "year_of_graduation">Год выпуска:
+                <span class="required_star_symbol">*</span>
+            </label>
+            <select name = "year_of_graduation" id = "year_of_graduation" class = "required" onfocus="createYears()">
+                <option disabled selected>выберите</option>
+            </select> <br>
+
+            <label for = "languages">Иностранные языки:</label>
+            <select name = "languages" id = "languages">
+                <option>Английский</option>
+                <option>Немецкий</option>
+                <option>Французский</option>
+                <option>Испанский</option>
+                <option>Другой</option>
+                <option selected>Нет</option>
+            </select>
+        </form>
+    </div>
+</div>
+
+<!-- Направление-->
+
+<div id ="type_of_program">
+    <h3>Ваши направления подготовки</h3>
+    <div class = "div_form_container">
+
+        <!-- Направление 1 -->
+
+        <h4> Направление 1</h4>
+        <form name ="program_form_2">
+
+            <label for = "degree">Программа подготовки:
+                <span class="required_star_symbol">*</span></label>
+            <select name = "degree" id = "degree" class = "required">
+                <option value = "default" selected disabled>Выберите:</option>
+                <option>Колледж</option>
+                <option>Бакалавриат</option>
+                <option>Специалитет</option>
+                <option>Магистратура</option>
+                <option>Аспирантура</option>
+            </select> <br>
+
+
+            <label for = "programms">Направления подготовки:
+                <span class="required_star_symbol">*</span></label>
+            <select name = "programms" id = "programms" class = "required">
+                <option value = "default" selected disabled>Выберите:</option>
+                <option>Колледж</option>
+                <option>Бакалавриат</option>
+                <option>Специалитет</option>
+                <option>Магистратура</option>
+                <option>Аспирантура</option>
+            </select> <br>
+
+
+            <div id = "select_your_future_1">
+                <label for = "faculty_1">Выбор факультета:
+                    <span class="required_star_symbol">*</span></label>
+                <select name = "faculty" id = "faculty_1" class = "required" onchange="specialityChoice(id)">
+                    <option value = "default" selected disabled>Выберите:</option>
+                    <option value = "design">Факультет дизайна</option>
+                    <option value = "its">Факультет интеллектуальных технических систем</option>
+                    <option value = "ineup">Факультет (институт) экономики, управления и права</option>
+                    <option value = "inyaz">Факультет иностранных языков</option>
+                    <option value = "mpitk">Факультет микроприборов и технической кибернетики</option>
+                    <option value = "prit">Факультет прикладных информационных технологий</option>
+                    <option value = "ekt">Факультет электроники и компьютерных технологий</option>
+                </select> <br>
+            </div>
+
+
+
+            <label for = "edu_form"> Форма обучения:
+                <span class="required_star_symbol">*</span>
+            </label>
+            <select name = "edu_form" id = "edu_form" class = "required">
+                <option value = "default" selected disabled>Выберите:</option>
+                <option>Очная</option>
+                <option>Очно-заочная</option>
+                <option>Заочная</option>
+            </select> <br>
+
+            <label for = "types_finance">Источник финансирования:
+                <span class="required_star_symbol">*</span>
+            </label>
+            <select name = "types_finance" id = "types_finance" class = "required">
+                <option value = "default" selected disabled>Выберите:</option>
+                <option>Бюджет</option>
+                <option>Внебюджет(контракт)</option>
+                <option>Целевой набор</option>
+            </select> <br>
+
+            <label for = "more_info">Дополнительная информация:</label>
+            <input type = "button" id = "more_info" value = "Добавить" onclick="showAdditionalInfoField(this)">
+
+            <div class = "hidden">
+                <label for = "additional_1">Дополнительная информация: </label>
+                <input type = "text" name = "additional_1" id = "additional_1">
+            </div>
+        </form>
+
+
+        <!-- Направление 2 -->
+
+        <div class = type_of_program_2>
+            <hr>
+            <h4> Направление 2</h4>
+            <form name ="program_form_2">
+
+                <label for = "degree_2">Программа подготовки:
+                    <span class="required_star_symbol">*</span></label>
+                <select name = "degree_2" id = "degree_2" class = "required">
+                    <option value = "default" selected disabled>Выберите:</option>
+                    <option>Колледж</option>
+                    <option>Бакалавриат</option>
+                    <option>Специалитет</option>
+                    <option>Магистратура</option>
+                    <option>Аспирантура</option>
+                </select> <br>
+
+            <label for = "programms_2">Направления подготовки:
+                <span class="required_star_symbol">*</span></label>
+            <select name = "programms_2" id = "programms_2" class = "required">
+                <option value = "default" selected disabled>Выберите:</option>
+                <option>Колледж</option>
+                <option>Бакалавриат</option>
+                <option>Специалитет</option>
+                <option>Магистратура</option>
+                <option>Аспирантура</option>
+            </select> <br>
+
+                <div id = "select_your_future_2">
+                    <label for = "faculty_2">Выбор факультета:
+                        <span class="required_star_symbol">*</span></label>
+                    <select name = "faculty_2" id = "faculty_2" class = "required" onchange="specialityChoice(id)">
+                        <option value = "default" selected disabled>Выберите:</option>
+                        <option value = "design">Факультет дизайна</option>
+                        <option value = "its">Факультет интеллектуальных технических систем</option>
+                        <option value = "ineup">Факультет (институт) экономики, управления и права</option>
+                        <option value = "inyaz">Факультет иностранных языков</option>
+                        <option value = "mpitk">Факультет микроприборов и технической кибернетики</option>
+                        <option value = "prit">Факультет прикладных информационных технологий</option>
+                        <option value = "ekt">Факультет электроники и компьютерных технологий</option>
+                    </select> <br>
+                </div>
+
+            <label for = "select_edu_form"> Форма обучения:
+                <span class="required_star_symbol">*</span>
+            </label>
+            <select name = "edu_form" id = "select_edu_form" class = "required">
+                <option value = "default" selected disabled>Выберите:</option>
+                <option>Очная</option>
+                <option>Очно-заочная</option>
+                <option>Заочная</option>
+            </select> <br>
+
+            <label for = "types_finance_2">Источник финансирования:
+                <span class="required_star_symbol">*</span>
+            </label>
+            <select name = "types_finance" id = "types_finance_2" class = "required">
+                <option value = "default" selected disabled>Выберите:</option>
+                <option>Бюджет</option>
+                <option>Внебюджет(контракт)</option>
+                <option>Целевой набор</option>
+            </select> <br>
+
+            <label for = "more_info_2">Дополнительная информация:</label>
+            <input type = "button" id = "more_info_2" value = "Добавить" onclick="showAdditionalInfoField(this)">
+
+            <div class = "hidden">
+                <label for = "additional_2">Дополнительная информация: </label>
+                <input type = "text" name = "additional_2" id = "additional_2">
+            </div>
+        </form>
+        </div>
+
+        <!-- Направление 3 -->
+
+        <div class = type_of_program_2>
+            <hr>
+            <h4> Направление 3</h4>
+            <form name ="program_form_3">
+
+                <label for = "degree_3">Программа подготовки:
+                    <span class="required_star_symbol">*</span></label>
+                <select name = "degree_3" id = "degree_3" class = "required">
+                    <option value = "default" selected disabled>Выберите:</option>
+                    <option>Колледж</option>
+                    <option>Бакалавриат</option>
+                    <option>Специалитет</option>
+                    <option>Магистратура</option>
+                    <option>Аспирантура</option>
+                </select> <br>
+
+                <label for = "programms_3">Направления подготовки:
+                    <span class="required_star_symbol">*</span></label>
+                <select name = "programms_3" id = "programms_3" class = "required">
+                    <option value = "default" selected disabled>Выберите:</option>
+                    <option>Колледж</option>
+                    <option>Бакалавриат</option>
+                    <option>Специалитет</option>
+                    <option>Магистратура</option>
+                    <option>Аспирантура</option>
+                </select> <br>
+
+                <div id = "select_your_future_3">
+                    <label for = "faculty_3">Выбор факультета:
+                        <span class="required_star_symbol">*</span></label>
+                    <select name = "faculty_3" id = "faculty_3" class = "required" onchange="specialityChoice(id)">
+                        <option value = "default" selected disabled>Выберите:</option>
+                        <option value = "design">Факультет дизайна</option>
+                        <option value = "its">Факультет интеллектуальных технических систем</option>
+                        <option value = "ineup">Факультет (институт) экономики, управления и права</option>
+                        <option value = "inyaz">Факультет иностранных языков</option>
+                        <option value = "mpitk">Факультет микроприборов и технической кибернетики</option>
+                        <option value = "prit">Факультет прикладных информационных технологий</option>
+                        <option value = "ekt">Факультет электроники и компьютерных технологий</option>
+                    </select> <br>
+                </div>
+
+                <label for = "select_edu_form_3"> Форма обучения:
+                    <span class="required_star_symbol">*</span>
+                </label>
+                <select name = "edu_form" id = "select_edu_form_3" class = "required">
+                    <option value = "default" selected disabled>Выберите:</option>
+                    <option>Очная</option>
+                    <option>Очно-заочная</option>
+                    <option>Заочная</option>
+                </select> <br>
+
+                <label for = "types_finance_3">Источник финансирования:
+                    <span class="required_star_symbol">*</span>
+                </label>
+                <select name = "types_finance" id = "types_finance_3" class = "required">
+                    <option value = "default" selected disabled>Выберите:</option>
+                    <option>Бюджет</option>
+                    <option>Внебюджет(контракт)</option>
+                    <option>Целевой набор</option>
+                </select> <br>
+
+
+                <label for = "more_info_3">Дополнительная информация:</label>
+                <input type = "button" id = "more_info_3" value = "Добавить" onclick="showAdditionalInfoField(this)">
+
+                <div class = "hidden">
+                    <label for = "additional_3">Дополнительная информация: </label>
+                    <input type = "text" name = "additional_3" id = "additional_3">
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+<div class = "buttons">
+    <input type = "submit" name="submit" id = "submit" value = "Отправить анкету" onclick="checkAllFields()">
+    <input type = "submit" name = "erase" id = "erase" value="Очистить все" onclick="eraseFieldValues()">
+</div>
+
+<script>
+    createYears();
+</script>
+
+</body>
+</html>
