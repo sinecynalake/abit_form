@@ -3,18 +3,16 @@ function checkAllFields() {
     var required_fields = document.getElementsByClassName("required");
 
     for (var i = 0; i < required_fields.length; i++){
-        if (required_fields.item(i).type === "text" && !(required_fields.item(i).classList.contains("hidden"))){
+        if (((required_fields.item(i).tagName === "INPUT") || (required_fields.item(i).tagName === "TEXTAREA"))
+            && !(required_fields.item(i).classList.contains("hidden"))){
             if (required_fields.item(i).value.length === 0){
                 required_fields.item(i).classList.add("required_fill");
                 required_field_empty_number++;
             }
         }
-
-        if (required_fields.item(i).tagName === "textarea"){
-            if (required_fields.item(i).value.length === 0){
+        if (required_fields.item(i).tagName === "SELECT"){
+            if (required_fields.item(i).value === "default")
                 required_fields.item(i).classList.add("required_fill");
-                required_field_empty_number++;
-            }
         }
     }
 
@@ -27,24 +25,20 @@ function checkAllFields() {
 function eraseFieldValues() {
     var all_input_fields = document.getElementsByTagName("input");
     var text_areas = document.getElementsByTagName("textarea");
+    var select_items = document.getElementsByTagName("select");
 
     for (var i = 0; i < all_input_fields.length; i++){
-        if (all_input_fields.item(i).type === "text") {
-            all_input_fields.item(i).value = "";   
-            }
-        if (all_input_fields.item(i).type === "date") { 
-             all_input_fields.item(i).value = null;
-             }
+        all_input_fields.item(i).value = "";
     }
-    
-        for (var i = 0; i < text_areas.length; i++){
-            text_areas.item(i).value = "";
+    for (var i = 0; i < text_areas.length; i++){
+        text_areas.item(i).value = "";
+    }
+    for (var i = 0; i < select_items.length; i++){
+        select_items.item(i).value = "default";
     }
 }
 
-function if_filled_wrong(id){
-    var field = document.getElementById(id);
-
+function if_filled_wrong(field){
     if (field.value.length === 0)
         return true;
     if (field.value.charAt(0) === field.value.charAt(0).toLowerCase())
@@ -53,10 +47,8 @@ function if_filled_wrong(id){
     return false;
 }
 
-function checkName(id) {
-    var name = document.getElementById(id);
-
-    if (if_filled_wrong(id)) {
+function checkName(field) {
+    if (if_filled_wrong(field)) {
         name.classList.add("required_fill");
     }
     else {
@@ -75,33 +67,29 @@ function checkNomer(id) {
 
 }
 
-function specialityChoice(id) {
-    var spec_choice = document.getElementById(id);
-    var choice = spec_choice.value;
+function specialityChoice(select) {
+    var main_div = select.parentNode;
 
-    if (spec_choice.id === "faculty_1"){
-        var main_div = document.getElementById("select_your_future_1");
-    }
 
-    else if (spec_choice.id === "faculty_2"){
-        var main_div = document.getElementById("select_your_future_2");
-    }
+    var new_div = document.createElement("div");
+    new_div.id = "new_speciality_select";
 
-    else {
-        var main_div = document.getElementById("select_your_future_3");
-    }
-    
-        var l = document.createElement("label");
-    l.innerHTML = "Направление:";
-    l.htmlFor = "select_napr";
-    main_div.appendChild(l);
+
+    var newLabel = document.createElement("label");
+    newLabel.innerHTML = "Направление:";
+    newLabel.htmlFor = "select_napr";
+    new_div.appendChild(newLabel);
+    main_div.appendChild(new_div);
+
+
+    var choice = select.value;
 
     switch (choice){
         case "design":
             var choices = ["Дизайн"];
             var design_select = document.createElement("select");
             design_select.id = "select_napr";
-            main_div.appendChild(design_select);
+            new_div.appendChild(design_select);
 
             for (var i = 0; i < choices.length; i++){
                 var opt = document.createElement("option");
@@ -114,7 +102,7 @@ function specialityChoice(id) {
         case "ineup":
             var choices = ["Менеджмент"];
             var ineup_select = document.createElement("select");
-            main_div.appendChild(ineup_select);
+            new_div.appendChild(ineup_select);
 
             for (var i = 0; i < choices.length; i++){
                 var opt = document.createElement("option");
@@ -128,7 +116,7 @@ function specialityChoice(id) {
             var choices = ["Конструирование и технология электронных средств", "Материаловедение и технологии материалов",
                 "Техносферная безопасность", "Управление в технических системах"];
             var its_select = document.createElement("select");
-            main_div.appendChild(its_select);
+            new_div.appendChild(its_select);
 
             for (var i = 0; i < choices.length; i++){
                 var opt = document.createElement("option");
@@ -141,7 +129,7 @@ function specialityChoice(id) {
         case "inyaz":
             var choices = ["Лингвистика"];
             var inyaz_select = document.createElement("select");
-            main_div.appendChild(inyaz_select);
+            new_div.appendChild(inyaz_select);
 
             for (var i = 0; i < choices.length; i++){
                 var opt = document.createElement("option");
@@ -155,7 +143,7 @@ function specialityChoice(id) {
             var choices = ["Инфокоммуникационные технологии и системы связи", "Информатика и вычислительная техника",
             "Информационная безопасность", "Прикладная математика", "Программная инженерия", "Радиотехника"];
             var mpitk_select = document.createElement("select");
-            main_div.appendChild(mpitk_select);
+            new_div.appendChild(mpitk_select);
 
             for (var i = 0; i < choices.length; i++){
                 var opt = document.createElement("option");
@@ -168,7 +156,7 @@ function specialityChoice(id) {
         case "prit":
             var choices = ["Прикладная информатика"];
             var prit_select = document.createElement("select");
-            main_div.appendChild(prit_select);
+            new_div.appendChild(prit_select);
 
             for (var i = 0; i < choices.length; i++){
                 var opt = document.createElement("option");
@@ -181,7 +169,7 @@ function specialityChoice(id) {
         case "ekt":
             var choices = ["Биотехнические системы и технологии", "Электроника и наноэлектроника"];
             var ekt_select = document.createElement("select");
-            main_div.appendChild(ekt_select);
+            new_div.appendChild(ekt_select);
 
             for (var i = 0; i < choices.length; i++){
                 var opt = document.createElement("option");
@@ -192,7 +180,7 @@ function specialityChoice(id) {
             break;
     }
     var br = document.createElement("br");
-    main_div.appendChild(br);
+    new_div.appendChild(br);
 
 }
 
