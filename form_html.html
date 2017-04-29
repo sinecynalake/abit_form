@@ -33,12 +33,12 @@
             <label for = "surname"> Фамилия:
                 <span class = "required_star_symbol">*</span>
             </label>
-            <input type = "text" name = "surname" id ="surname" class = "required" onchange="checkName(id)"> <br>
+            <input type = "text" name = "surname" id ="surname" class = "required" onchange="checkName(this)"> <br>
 
             <label for = "lastname"> Имя:
                 <span class = "required_star_symbol">*</span>
             </label>
-            <input type = "text" name = "lastname" id = "lastname" class = "required" onchange="checkName(id)"> <br>
+            <input type = "text" name = "lastname" id = "lastname" class = "required" onchange="checkName(this)"> <br>
 
             <label for = "otch" class = "form_labels"> Отчество:</label>
             <input type = "text" name = "otch" id = "otch"> <br>
@@ -138,7 +138,7 @@
             <div class = "hidden">
                 <label for = "address_country_name">Название страны:
                     <span class = "required_star_symbol">*</span></label>
-                <input type = "text" name = "address_country_name" id = "address_country_name" class = "required">
+                <input type = "text" name = "address_country_name" id = "address_country_name" class = "required hidden">
             </div>
 
             <label for = "city">Населенный пункт: <br></label>
@@ -201,7 +201,7 @@
             </label>
 
             <select name = "obr_type" id = "obr_type" class = "required">
-                <option value = "default" selected>Выберите:</option>
+                <option value = "default" selected disabled>Выберите:</option>
                 <option>Школа</option>
                 <option>Гимназия</option>
                 <option>Лицей</option>
@@ -214,7 +214,7 @@
                 <span class = "required_star_symbol">*</span>
             </label>
             <select name = "edu_country" id = "edu_country" class = "required" onchange="showHiddenFields(this)">
-                <option disabled selected>Выберите</option>
+                <option value = "default" disabled selected>Выберите:</option>
                 <option value = "edu_russia">Российская Федерация</option>
                 <option value = "shows_hidden">Дргуая страна</option>
             </select>
@@ -223,7 +223,7 @@
                 <br>
                 <label for = "edu_country_name">Название страны:
                     <span class = "required_star_symbol">*</span></label>
-                <input type = "text" name = "edu_country_name" id = "edu_country_name" class = "required">
+                <input type = "text" name = "edu_country_name" id = "edu_country_name" class = "required hidden">
             </div>
 
             <br>
@@ -241,7 +241,7 @@
                 <span class="required_star_symbol">*</span>
             </label>
             <select name = "year_of_graduation" id = "year_of_graduation" class = "required" onfocus="createYears()">
-                <option disabled selected>выберите</option>
+                <option value = "default" disabled selected>выберите</option>
             </select> <br>
 
             <label for = "languages">Иностранные языки:</label>
@@ -295,7 +295,7 @@
             <div id = "select_your_future_1">
                 <label for = "faculty_1">Выбор факультета:
                     <span class="required_star_symbol">*</span></label>
-                <select name = "faculty" id = "faculty_1" class = "required" onchange="specialityChoice(id)">
+                <select name = "faculty" id = "faculty_1" class = "required" onchange="specialityChoice(this)">
                     <option value = "default" selected disabled>Выберите:</option>
                     <option value = "design">Факультет дизайна</option>
                     <option value = "its">Факультет интеллектуальных технических систем</option>
@@ -371,7 +371,7 @@
                 <div id = "select_your_future_2">
                     <label for = "faculty_2">Выбор факультета:
                         <span class="required_star_symbol">*</span></label>
-                    <select name = "faculty_2" id = "faculty_2" class = "required" onchange="specialityChoice(id)">
+                    <select name = "faculty_2" id = "faculty_2" class = "required" onchange="specialityChoice(this)">
                         <option value = "default" selected disabled>Выберите:</option>
                         <option value = "design">Факультет дизайна</option>
                         <option value = "its">Факультет интеллектуальных технических систем</option>
@@ -445,7 +445,7 @@
                 <div id = "select_your_future_3">
                     <label for = "faculty_3">Выбор факультета:
                         <span class="required_star_symbol">*</span></label>
-                    <select name = "faculty_3" id = "faculty_3" class = "required" onchange="specialityChoice(id)">
+                    <select name = "faculty_3" id = "faculty_3" class = "required" onchange="specialityChoice(this)">
                         <option value = "default" selected disabled>Выберите:</option>
                         <option value = "design">Факультет дизайна</option>
                         <option value = "its">Факультет интеллектуальных технических систем</option>
