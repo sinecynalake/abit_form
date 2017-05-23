@@ -28,7 +28,9 @@ function eraseFieldValues() {
     var select_items = document.getElementsByTagName("select");
 
     for (var i = 0; i < all_input_fields.length; i++){
-        all_input_fields.item(i).value = "";
+        if ((all_input_fields.item(i).type !== "button") && (all_input_fields.item(i).type !== "submit")) {
+            all_input_fields.item(i).value = "";
+        }
     }
     for (var i = 0; i < text_areas.length; i++){
         text_areas.item(i).value = "";
@@ -36,6 +38,10 @@ function eraseFieldValues() {
     for (var i = 0; i < select_items.length; i++){
         select_items.item(i).value = "default";
     }
+
+    var required_fields = document.getElementsByClassName("required");
+    for (var i=0; i < required_fields.length; i++){
+        required_fields.item(i).classList.remove("required_fill");}
 }
 
 function if_filled_wrong(field){
@@ -49,10 +55,10 @@ function if_filled_wrong(field){
 
 function checkName(field) {
     if (if_filled_wrong(field)) {
-        name.classList.add("required_fill");
+        field.classList.add("required_fill");
     }
     else {
-        name.classList.remove("required_fill");
+        field.classList.remove("required_fill");
     }
 }
 
@@ -68,120 +74,74 @@ function checkNomer(id) {
 }
 
 function specialityChoice(select) {
-    var main_div = select.parentNode;
 
+    var speciality_select;
 
-    var new_div = document.createElement("div");
-    new_div.id = "new_speciality_select";
+    if (select.id === "faculty_1"){
+        speciality_select = document.getElementById("napr_select_1");
+    }
+    if (select.id === "faculty_2"){
+        speciality_select = document.getElementById("napr_select_2");
+    }
+    if (select.id === "faculty_3"){
+        speciality_select = document.getElementById("napr_select_3");
+    }
 
+    function removeValues(){
+        var values = select.options;
 
-    var newLabel = document.createElement("label");
-    newLabel.innerHTML = "Направление:";
-    newLabel.htmlFor = "select_napr";
-    new_div.appendChild(newLabel);
-    main_div.appendChild(new_div);
+        for (var i = 0; i < values.length; i++){
+            select.removeChild(select.options[i]);
+        }
+    }
 
+    function makeSelectOptions(choices) {
+        for (var i = 0; i < choices.length; i++){
+            var opt = document.createElement("option");
+            opt.value = opt.text = choices[i];
+            speciality_select.appendChild(opt);
+        }
+    }
 
-    var choice = select.value;
-
-    switch (choice){
+    removeValues();
+    switch (select.value){
         case "design":
             var choices = ["Дизайн"];
-            var design_select = document.createElement("select");
-            design_select.id = "select_napr";
-            new_div.appendChild(design_select);
-
-            for (var i = 0; i < choices.length; i++){
-                var opt = document.createElement("option");
-                opt.value = choices[i];
-                opt.text = choices[i];
-                design_select.appendChild(opt);
-            }
+            makeSelectOptions(choices);
             break;
 
         case "ineup":
             var choices = ["Менеджмент"];
-            var ineup_select = document.createElement("select");
-            new_div.appendChild(ineup_select);
-
-            for (var i = 0; i < choices.length; i++){
-                var opt = document.createElement("option");
-                opt.value = choices[i];
-                opt.text = choices[i];
-                ineup_select.appendChild(opt);
-            }
+            makeSelectOptions(choices);
             break;
 
         case "its":
             var choices = ["Конструирование и технология электронных средств", "Материаловедение и технологии материалов",
-                "Техносферная безопасность", "Управление в технических системах"];
-            var its_select = document.createElement("select");
-            new_div.appendChild(its_select);
-
-            for (var i = 0; i < choices.length; i++){
-                var opt = document.createElement("option");
-                opt.value = choices[i];
-                opt.text = choices[i];
-                its_select.appendChild(opt);
-            }
+                    "Техносферная безопасность", "Управление в технических системах"];
+            makeSelectOptions(choices);
             break;
 
         case "inyaz":
             var choices = ["Лингвистика"];
-            var inyaz_select = document.createElement("select");
-            new_div.appendChild(inyaz_select);
-
-            for (var i = 0; i < choices.length; i++){
-                var opt = document.createElement("option");
-                opt.value = choices[i];
-                opt.text = choices[i];
-                inyaz_select.appendChild(opt);
-            }
+            makeSelectOptions(choices);
             break;
 
         case "mpitk":
             var choices = ["Инфокоммуникационные технологии и системы связи", "Информатика и вычислительная техника",
             "Информационная безопасность", "Прикладная математика", "Программная инженерия", "Радиотехника"];
-            var mpitk_select = document.createElement("select");
-            new_div.appendChild(mpitk_select);
-
-            for (var i = 0; i < choices.length; i++){
-                var opt = document.createElement("option");
-                opt.value = choices[i];
-                opt.text = choices[i];
-                mpitk_select.appendChild(opt);
-            }
+            makeSelectOptions(choices);
             break;
 
         case "prit":
             var choices = ["Прикладная информатика"];
-            var prit_select = document.createElement("select");
-            new_div.appendChild(prit_select);
-
-            for (var i = 0; i < choices.length; i++){
-                var opt = document.createElement("option");
-                opt.value = choices[i];
-                opt.text = choices[i];
-                prit_select.appendChild(opt);
-            }
+            makeSelectOptions(choices);
             break;
 
         case "ekt":
             var choices = ["Биотехнические системы и технологии", "Электроника и наноэлектроника"];
-            var ekt_select = document.createElement("select");
-            new_div.appendChild(ekt_select);
-
-            for (var i = 0; i < choices.length; i++){
-                var opt = document.createElement("option");
-                opt.value = choices[i];
-                opt.text = choices[i];
-                ekt_select.appendChild(opt);
-            }
+            makeSelectOptions(choices);
             break;
     }
-    var br = document.createElement("br");
-    new_div.appendChild(br);
-
 }
 
 function createYears() {
@@ -217,26 +177,40 @@ function showHiddenFields(element) {
         }
     }
 
-    if (element.type === "CHECKBOX"){
-        if (element.checked){
-            div.style.display = "none";
-        }
-        else {
-            div.style.display = "block";
+    if (element.nodeName === "INPUT") {
+        console.log(element.type);
+        if (element.type === "checkbox") {
+            if (element.checked) {
+                div.style.display = "none";
+            }
+            else {
+                div.style.display = "block";
+            }
         }
     }
 }
 
-function showAdditionalInfoField(button) {
-    button.onclick = function() {
+function showAdditionalInfoField(button){
         var div = button.nextElementSibling;
-        if (div.style.display !== 'none') {
+        console.log(div);
+        console.log(div.style.display);
+    
+        if (div.style.display === "none") {
             button.value = "Добавить";
-            div.style.display = 'none';
+            div.style.display = "block";
         }
-        else {
+        if (div.style.display === "block") {
             button.value = "Скрыть";
-            div.style.display = 'block';
+            div.style.display = "none";
         }
-    };
 }
+
+function copyAddress() {
+    var div_from_copy = document.getElementsByClassName("copy_address_from");
+    var div_paste = document.getElementsByClassName("copy_address_to");
+
+    for (var i = 0; i < div_from_copy.length; i++){
+        console.log(div_from_copy.item(i));
+    }
+}
+
